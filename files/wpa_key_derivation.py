@@ -18,10 +18,7 @@ __status__ = "Prototype"
 
 from scapy.all import *
 from binascii import a2b_hex, b2a_hex
-# from pbkdf2 import pbkdf2_hex
 from pbkdf2 import *
-from numpy import array_split
-from numpy import array
 import hmac, hashlib
 
 
@@ -51,6 +48,7 @@ Clientmac = a2b_hex(wpa[1].addr1.replace(':', ''))  # 0013efd015bd
 
 # Authenticator and Supplicant Nonces
 # original gives us raw packets bytes
+# we tried with scapy.contrib.wpa_eapol import WPA_key but no documentation and it doesn't work
 ANonce = wpa[5].original[67:99]  # 90773b9a9661fee1f406e8989c912b45b029c652224e8b561417672ca7e0fd91
 SNonce = wpa[6].original[65:97]  # 7b3826876d14ff301aee7c1072b5e9091e21169841bce9ae8a3f24628f264577
 
