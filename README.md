@@ -56,6 +56,9 @@ Utilisant le script [wpa\_key\_derivation.py](files/wpa_key_derivation.py) comme
    - Identiques &rarr; La passphrase utilisée est correcte
    - Différents &rarr; Essayer avec une nouvelle passphrase
 
+#### Capture du script en action :
+![crack](images/scaircrack.jpg)
+
 ### 3. Attaque PMKID
 
 #### 3.1. Obtention de la PMKID et des paramètres pour la dérivation de la PMK
@@ -83,11 +86,15 @@ Utilisant votre script précédent, le modifier pour réaliser les taches suivan
    - Identiques &rarr; La passphrase utilisée est correcte
    - Différents &rarr; Essayer avec une nouvelle passphrase
 
+##### Capture du script en action :
+![crack](images/pmkid.jpg)
 
 #### 3.3. Attaque hashcat
 
 A manière de comparaison, réaliser l'attaque sur le [fichier de capture](files/PMKID_handshake.pcap) utilisant la méthode décrite [ici](https://hashcat.net/forum/thread-7717.html).
 
+##### Capture du script en action :
+![crack](images/pmkid_hashcat.jpg)
 
 ### 4. Scairodump (Challenge optionnel pour un bonus)
 
